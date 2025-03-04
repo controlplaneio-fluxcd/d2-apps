@@ -1,4 +1,3 @@
----
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
@@ -7,7 +6,7 @@ spec:
   interval: 1h
   url: oci://ghcr.io/stefanprodan/charts/podinfo
   ref:
-    semver: 6.7.0 # {"$imagepolicy": "apps:frontend-podinfo:tag"}
+    semver: 6.7.1 # {"$imagepolicy": "apps:frontend-podinfo:tag"}
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
