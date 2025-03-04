@@ -1,4 +1,3 @@
----
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
@@ -7,7 +6,7 @@ spec:
   interval: 1h
   url: oci://registry-1.docker.io/bitnamicharts/redis
   ref:
-    semver: 20.10.0 # {"$imagepolicy": "apps:backend-redis:tag"}
+    semver: 20.11.0 # {"$imagepolicy": "apps:backend-redis:tag"}
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
