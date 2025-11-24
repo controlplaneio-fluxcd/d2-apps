@@ -6,7 +6,7 @@ spec:
   interval: 1h
   url: oci://registry-1.docker.io/bitnamicharts/memcached
   ref:
-    semver: 7.8.1 # {"$imagepolicy": "apps:backend-memcached:tag"}
+    semver: 8.1.5 # {"$imagepolicy": "apps:backend-memcached:tag"}
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
