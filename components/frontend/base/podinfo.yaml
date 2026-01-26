@@ -6,7 +6,7 @@ spec:
   interval: 1h
   url: oci://ghcr.io/stefanprodan/charts/podinfo
   ref:
-    semver: 6.9.3 # {"$imagepolicy": "apps:frontend-podinfo:tag"}
+    semver: 6.9.4 # {"$imagepolicy": "apps:frontend-podinfo:tag"}
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
