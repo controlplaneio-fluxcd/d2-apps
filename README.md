@@ -82,3 +82,4 @@ Workflows:
 
 - [push-artifact](https://github.com/controlplaneio-fluxcd/d2-apps/blob/main/.github/workflows/push-artifact.yaml) - triggered on commits to main branch, publishes the component artifact tagged as `latest`.
 - [release-artifact](https://github.com/controlplaneio-fluxcd/d2-apps/blob/main/.github/workflows/release-artifact.yaml) - triggered on Git tags matching the format `<component>/vX.Y.Z`, publishes the component artifact tagged as `vX.Y.Z` and updates the `latest-stable` tag to point to the new release.
+- [validate](https://github.com/controlplaneio-fluxcd/d2-apps/blob/main/.github/workflows/validate.yaml) - triggered on pull requests, validates the Kubernetes manifests including Flux custom resources.
