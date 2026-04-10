@@ -17,15 +17,16 @@ spec:
   chartRef:
     kind: OCIRepository
     name: redis-chart
-  interval: 50m
+  interval: 1h
+  timeout: 10m
   driftDetection:
     mode: disabled
   install:
-    timeout: 10m
-    remediation:
-      retries: 3
+    strategy:
+      name: RetryOnFailure
   upgrade:
-    timeout: 10m
+    strategy:
+      name: RetryOnFailure
   # Default values
   # https://artifacthub.io/packages/helm/bitnami/redis?modal=values
   values:
