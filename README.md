@@ -21,24 +21,20 @@ the delivery of applications to the Kubernetes cluster fleet.
 
 This repository is used to define the application components such as:
 
-- Flux HelmRepositories (pointing to the application Helm charts in container registries)
+- Flux OCIRepositories (pointing to the application Helm charts in container registries)
 - Flux HelmReleases for the applications with custom configuration per environment
 
 This repository is reconciled on the cluster fleet by Flux as the **namespace admin**
 and can't contain Kubernetes cluster-wide definitions such as CRDs, Cluster Roles, Namespaces, etc.
 
-The platform team that manages the [d1-fleet repository](https://github.com/controlplaneio-fluxcd/d1-fleet)
+The platform team that manages the [d2-fleet repository](https://github.com/controlplaneio-fluxcd/d2-fleet)
 is responsible for assigning the namespaces to the dev teams and configuring Flux with the
-necessary RBAC to reconcile the `d1-apps` repository across the cluster fleet.
+necessary RBAC to reconcile the `d2-apps` repository across the cluster fleet.
 
 The platform team is also responsible for setting up any cluster-wide resources that the applications
 depend on, such as CRD controllers, Ingress classes, Storage classes, etc. The cluster components
 managed by the platform team are defined in the
-[d1-infra repository](https://github.com/controlplaneio-fluxcd/d1-infra).
-
-Access to this repository is restricted to the dev teams and the
-[Flux bot account](https://github.com/controlplaneio-fluxcd/d1-fleet?tab=readme-ov-file#create-a-github-account-for-flux).
-The Flux bot should be the only account with direct push access to the `main` branch.
+[d2-infra repository](https://github.com/controlplaneio-fluxcd/d2-infra).
 
 ## Repository Structure
 
@@ -68,5 +64,21 @@ The application components are grouped by namespace, and are defined in a direct
         └── release2-values.yaml
 ```
 
-Each namespace is independently reconciled on clusters and can
-contain multiple HelmReleases with custom configuration per environment.
+## OCI Artifacts
+
+Each component is published to a dedicated OCI repository, for example, the `frontend` component
+is published to `oci://ghcr.io/controlplaneio-fluxcd/d2-apps/frontend` and is tagged as:
+
+- `latest` for the main branch commits that modify the component.
+- `vX.Y.Z` for the release tags matching the Git tag format `<component>/vX.Y.Z`.
+- `latest-stable` points to the latest artifact tagged as `vX.Y.Z`.
+
+GitHub workflows defined in `.github/workflows` are responsible for publishing and signing
+the component artifacts to GHCR using the
+[controlplaneio-fluxcd/distribution/actions/push](https://github.com/controlplaneio-fluxcd/distribution/tree/main/actions/push)
+GitHub Action.
+
+Workflows:
+
+- [push-artifact](https://github.com/controlplaneio-fluxcd/d2-apps/blob/main/.github/workflows/push-artifact.yaml) - triggered on commits to main branch, publishes the component artifact tagged as `latest`.
+- [release-artifact](https://github.com/controlplaneio-fluxcd/d2-apps/blob/main/.github/workflows/release-artifact.yaml) - triggered on Git tags matching the format `<component>/vX.Y.Z`, publishes the component artifact tagged as `vX.Y.Z` and updates the `latest-stable` tag to point to the new release.

@@ -17,15 +17,16 @@ spec:
   chartRef:
     kind: OCIRepository
     name: podinfo-chart
-  interval: 50m
+  interval: 1h
+  timeout: 10m
   driftDetection:
     mode: enabled
   install:
-    timeout: 10m
-    remediation:
-      retries: 3
+    strategy:
+      name: RetryOnFailure
   upgrade:
-    timeout: 10m
+    strategy:
+      name: RetryOnFailure
   # Default values
   # https://github.com/stefanprodan/podinfo/blob/master/charts/podinfo/values.yaml
   values:
